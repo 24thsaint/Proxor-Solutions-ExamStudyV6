@@ -188,6 +188,10 @@ public class SpreadSheet extends JFrame {
                         (tokens.nextToken().equals("="))) {
                     	String val = null;
                     	
+                    	/**
+                    	 * This beautiful solution is based on
+                    	 * https://github.com/Optixal/ProxorSolutionsV6/tree/master/parentheses-ss
+                    	 */
                     	int openParensCount = 0;
                     	int closeParensCount = 0;
                     	for (int i = 0; i < formula.length(); i++) {
