@@ -86,12 +86,16 @@ public class SpreadSheet extends JFrame implements ActionListener {
     // set a cell to a value or a formula (during evaluate(), the
     // field will be evaluated and copied to the displayed text field.
 	public void setCell(int row, int col, String field) {
+		/*
+		 * Validators to avoid ArrayOutOfBounds exceptions.
+		 */
 		if (row > this.maxRows - 1) {
 			return;
 		}
 		if (col > this.maxCols - 1) {
 			return;
 		}
+		
 		cells[row][col].formula = field;
 	}
     
@@ -101,23 +105,26 @@ public class SpreadSheet extends JFrame implements ActionListener {
     }
     
     public int getColumnCount(int rowIndex) {
-    	int lastNonEmptyIndex = 0;
+    	int lastNonEmptyIndex = -1; // I started on -1 because 0 is a valid column index.
+    	
     	for (int i = 0; i < this.maxCols; i++) {
-			if (!cells[rowIndex][i].formula.isEmpty()) {
+			if (!cells[rowIndex][i].formula.isEmpty() && !cells[rowIndex][i].formula.equals("")) {
+				System.out.println("Non empty: " + i);
 				lastNonEmptyIndex = i;
 			}
 		}
-    	return lastNonEmptyIndex + 1;
+    	return lastNonEmptyIndex;
     }
     
     public int getRowCount() {
-    	int lastNonEmptyIndex = 0;
+    	int lastNonEmptyIndex = -1; // I stated on -1 because 0 is a valid row index.
+    	
     	for (int i = 0; i < this.maxRows; i++) {
-			if (this.getColumnCount(i) > 0) {
+			if (this.getColumnCount(i) >= 0) {
 				lastNonEmptyIndex = i;
 			}
 		}
-    	return lastNonEmptyIndex + 1;
+    	return lastNonEmptyIndex;
     }
         
     // evaluate a token, which may be a reference to another cell or

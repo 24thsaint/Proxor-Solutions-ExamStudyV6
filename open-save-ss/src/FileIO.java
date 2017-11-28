@@ -54,8 +54,8 @@ public class FileIO {
 	
     public static boolean saveAs(SpreadSheet ss, File file) {
     	CsvWriter writer = new CsvWriter(file.toString());
-    	for (int i = 0; i < ss.getRowCount(); i++) {
-			for (int j = 0; j < ss.getColumnCount(i); j++) {
+    	for (int i = 0; i <= ss.getRowCount(); i++) { // Inclusive row count
+			for (int j = 0; j <= ss.getColumnCount(i); j++) { // Inclusive column count
 				try {
 					writer.write(ss.getCellFormula(i, j));
 				} catch (IOException e) {
