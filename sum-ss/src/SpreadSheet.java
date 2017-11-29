@@ -134,19 +134,28 @@ public class SpreadSheet extends JFrame {
     		int constant = start.charAt(0);
     		int startData = start.charAt(1);
     		int endData = end.charAt(1);
+    		
+    		int min = Math.min(startData, endData);
+    		int max = Math.max(startData, endData);
+    		
     		double sum = 0;
-    		for (int i = startData; i <= endData; i++) {
+    		
+    		for (int i = min; i <= max; i++) {
 				String cellString = (char) constant + "" + (char) i;
 				sum += Double.parseDouble(this.evaluateToken(cellString, depth));
 			}
     		return String.valueOf(sum);
-    	} else if (start.charAt(1) == end.charAt(1)) {
-    		int constant = start.charAt(1);
+    	} else if (start.substring(1).equals(end.substring(1))) {
+    		int constant = Integer.parseInt(start.substring(1));
     		int startData = start.charAt(0);
     		int endData = end.charAt(0);
+    		
+    		int min = Math.min(startData, endData);
+    		int max = Math.max(startData, endData);
+    		
     		double sum = 0;
-    		for (int i = startData; i <= endData; i++) {
-    			String cellString = (char) i + "" + (char) constant;
+    		for (int i = min; i <= max; i++) {
+    			String cellString = (char) i + "" + constant;
     			sum += Double.parseDouble(this.evaluateToken(cellString, depth));
 			}
     		return String.valueOf(sum);
