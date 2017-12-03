@@ -132,8 +132,8 @@ public class SpreadSheet extends JFrame {
     public String calculateSum(String start, String end, int depth) {
     	if (start.charAt(0) == end.charAt(0)) {
     		int constant = start.charAt(0);
-    		int startData = start.charAt(1);
-    		int endData = end.charAt(1);
+    		int startData = Integer.parseInt(start.substring(1));
+    		int endData = Integer.parseInt(end.substring(1));
     		
     		int min = Math.min(startData, endData);
     		int max = Math.max(startData, endData);
@@ -141,7 +141,7 @@ public class SpreadSheet extends JFrame {
     		double sum = 0;
     		
     		for (int i = min; i <= max; i++) {
-				String cellString = (char) constant + "" + (char) i;
+				String cellString = (char) constant + "" + String.valueOf(i);
 				sum += Double.parseDouble(this.evaluateToken(cellString, depth));
 			}
     		return String.valueOf(sum);
