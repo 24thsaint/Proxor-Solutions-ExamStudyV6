@@ -138,15 +138,15 @@ public class SpreadSheet extends JFrame {
     	// A1:A5
     	if (start.charAt(0) == end.charAt(0)) {
     		constant = start.charAt(0);
-    		startIndex = start.charAt(1);
-    		endIndex = end.charAt(1);
+    		startIndex = Integer.parseInt(start.substring(1));
+    		endIndex = Integer.parseInt(end.substring(1));
     		
     		int min = Math.min(startIndex, endIndex);
     		int max = Math.max(startIndex, endIndex);
     		
     		int dataCount = (max - min) + 1;
     		for (int i = min; i <= max; i++) {
-    			String concatenatedCellData = (char) constant + "" + (char) i;
+    			String concatenatedCellData = (char) constant + "" + String.valueOf(i);
     			average += Double.parseDouble((this.evaluateToken(concatenatedCellData, depth)));
     		}
     		return String.valueOf(average / dataCount);
