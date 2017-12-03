@@ -108,8 +108,7 @@ public class SpreadSheet extends JFrame implements ActionListener {
     	int lastNonEmptyIndex = -1; // I started on -1 because 0 is a valid column index.
     	
     	for (int i = 0; i < this.maxCols; i++) {
-			if (!cells[rowIndex][i].formula.isEmpty() && !cells[rowIndex][i].formula.equals("")) {
-				System.out.println("Non empty: " + i);
+			if (!cells[rowIndex][i].formula.isEmpty()) {
 				lastNonEmptyIndex = i;
 			}
 		}
@@ -117,7 +116,7 @@ public class SpreadSheet extends JFrame implements ActionListener {
     }
     
     public int getRowCount() {
-    	int lastNonEmptyIndex = -1; // I stated on -1 because 0 is a valid row index.
+    	int lastNonEmptyIndex = -1; // I started on -1 because 0 is a valid row index.
     	
     	for (int i = 0; i < this.maxRows; i++) {
 			if (this.getColumnCount(i) >= 0) {
