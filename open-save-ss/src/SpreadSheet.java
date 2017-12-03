@@ -125,6 +125,15 @@ public class SpreadSheet extends JFrame implements ActionListener {
 		}
     	return lastNonEmptyIndex;
     }
+    
+    public void clearCells() {
+    	for (int i = 0; i < this.maxRows; i++) {
+			for (int j = 0; j < this.maxCols; j++) {
+				this.setCell(i, j, "");
+			}
+		}
+    	this.evaluate();
+    }
         
     // evaluate a token, which may be a reference to another cell or
     // simply a string. To avoid circular dependencies, the depth

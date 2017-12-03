@@ -15,32 +15,16 @@ import com.csvreader.CsvWriter;
 
 public class FileIO {
     public static boolean open(SpreadSheet ss, File file) {
-    	for (int i = 0; i < ss.maxRows; i++) {
-			for (int j = 0; j < ss.maxCols; j++) {
-				ss.setCell(i, j, "");
-			}
-		}
-    	ss.evaluate();
+    	ss.clearCells(); // clears the current sheet to prepare for the new sheet data 
     	
     	CsvReader reader;
     	try {
 			reader = new CsvReader(file.toString());
 			
-			int rowCount = 0;
-			while(reader.readRecord()) {
-				rowCount++;
-			}
-			
-			reader = new CsvReader(file.toString());
-			reader.readRecord();
-			int colCount = 0;
-			colCount = reader.getColumnCount();
-			reader = new CsvReader(file.toString());
-			
-			for (int i = 0; i < rowCount; i++) {
-				reader.readRecord();
-				for (int j = 0; j < colCount; j++) {
-					ss.setCell(i, j, reader.get(j));
+			for (int i = 0; reader.readRecord(); i++) {
+				String[] rowValues = reader.getValues();
+				for (int j = 0; j < rowValues.length; j++) {
+					ss.setCell(i, j, rowValues[j]);
 				}
 			}
 			
