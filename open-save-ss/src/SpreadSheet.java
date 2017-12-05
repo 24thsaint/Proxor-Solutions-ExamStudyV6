@@ -104,8 +104,14 @@ public class SpreadSheet extends JFrame implements ActionListener {
     	return cellsTF[row][col].getText();
     }
     
+    /**
+     * Gets the column count at a given row index
+     * 
+     * @param rowIndex - the row index
+     * @return the column count at index n
+     */
     public int getColumnCount(int rowIndex) {
-    	int lastNonEmptyIndex = -1; // I started on -1 because 0 is a valid column index.
+    	int lastNonEmptyIndex = 0; // Started on index 0 to workaround a bug in CsvReader: It skips blank rows.
     	
     	for (int i = 0; i < this.maxCols; i++) {
 			if (!cells[rowIndex][i].formula.isEmpty()) {

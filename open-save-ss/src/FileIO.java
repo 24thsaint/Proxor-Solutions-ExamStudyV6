@@ -14,6 +14,7 @@ import com.csvreader.CsvReader;
 import com.csvreader.CsvWriter;
 
 public class FileIO {
+	
     public static boolean open(SpreadSheet ss, File file) {
     	ss.clearCells(); // clears the current sheet to prepare for the new sheet data 
     	
