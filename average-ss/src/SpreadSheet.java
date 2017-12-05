@@ -133,41 +133,43 @@ public class SpreadSheet extends JFrame {
     	int startIndex = 0;
     	int endIndex = 0;
     	int constant = 0;
-    	double average = 0;
     	
-    	// A1:A5
     	if (start.charAt(0) == end.charAt(0)) {
     		constant = start.charAt(0);
     		startIndex = Integer.parseInt(start.substring(1));
     		endIndex = Integer.parseInt(end.substring(1));
     		
-    		int min = Math.min(startIndex, endIndex);
-    		int max = Math.max(startIndex, endIndex);
-    		
-    		int dataCount = (max - min) + 1;
-    		for (int i = min; i <= max; i++) {
-    			String concatenatedCellData = (char) constant + "" + String.valueOf(i);
-    			average += Double.parseDouble((this.evaluateToken(concatenatedCellData, depth)));
-    		}
-    		return String.valueOf(average / dataCount);
-    		// A1:D1
+    		return this.getAverage(startIndex, endIndex, constant, depth, false);
     	} else if (start.substring(1).equals(end.substring(1))) {
     		constant = Integer.parseInt(start.substring(1));
     		startIndex = start.charAt(0);
     		endIndex = end.charAt(0);
     		
-    		int min = Math.min(startIndex, endIndex);
-    		int max = Math.max(startIndex, endIndex);
-    		
-    		int dataCount = (max - min) + 1;
-    		for (int i = min; i <= max; i++) {
-    			String concatenatedCellData = (char) i + "" + String.valueOf(constant);
-    			average += Double.parseDouble((this.evaluateToken(concatenatedCellData, depth)));
-    		}
-    		return String.valueOf(average / dataCount);
+    		return this.getAverage(startIndex, endIndex, constant, depth, true);
     	} else {
     		return null;
     	}    	
+    }
+    
+    public String getAverage(int start, int end, int constant, int depth, boolean isRowAverage) {
+    	int min = Math.min(start, end);
+		int max = Math.max(start, end);
+		int dataCount = (max - min) + 1;
+		double average = 0;
+		
+		if (isRowAverage) {
+			for (int i = min; i <= max; i++) {
+    			String concatenatedCellData = (char) i + "" + String.valueOf(constant);
+    			average += Double.parseDouble((this.evaluateToken(concatenatedCellData, depth)));
+    		}
+		} else {
+			for (int i = min; i <= max; i++) {
+    			String concatenatedCellData = (char) constant + "" + String.valueOf(i);
+    			average += Double.parseDouble((this.evaluateToken(concatenatedCellData, depth)));
+    		}
+		}
+		
+		return String.valueOf(average / dataCount);
     }
     
     // parse and evaluate formula after it has been broken into tokens
