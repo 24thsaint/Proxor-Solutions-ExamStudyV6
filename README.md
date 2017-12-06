@@ -2,13 +2,13 @@
 Solved exercises for Proxor examination.
 
 # Disclaimer
-You may use these solutions to aid you while you study for your upcoming Proxor Examination. It would be better to devise and refine your own solutions as you progress with the tasks and become familiar with the system.
+You may use these solutions to aid you while you study for your upcoming Proxor Examination. It would be better to devise and refine your own solutions as you progress with the tasks and become familiar with the system. I 
 
-My advice: Practice smartly, not memorize hardly, and LOVE programming. Goodluck, bruv!
+> My advice: Practice smartly, not memorize hardly, and LOVE programming. Goodluck and aim high, bruv!
 
 ---
 
-Proxor 1 high possibility solutions:
+Solutions that may possibly be Proxor 2 or Proxor 1 (5th December 2017):
  - Average-ss
  - Open-save-ss
  - Stat-greatest-val-csv
