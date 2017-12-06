@@ -140,14 +140,14 @@ public class SpreadSheet extends JFrame {
     public String parseFormula(StringTokenizer tokens, int depth) 
             throws NumberFormatException {
         if (tokens.hasMoreTokens()) {
-            String tok = tokens.nextToken();
+            String tok = tokens.nextToken().trim();
             tok = evaluateToken(tok, depth);
             if (tok == null) return null;
             while (tokens.hasMoreTokens()) {
-                String tok2 = tokens.nextToken();
+                String tok2 = tokens.nextToken().trim();
                 if (tok2 == null) return null;
                 if (!tokens.hasMoreTokens()) return null;
-                String tok3 = tokens.nextToken();
+                String tok3 = tokens.nextToken().trim();
                 tok3 = evaluateToken(tok3, depth);
                 if (tok3 == null) return null;
                 if (tok2.equals("+")) {
@@ -173,7 +173,21 @@ public class SpreadSheet extends JFrame {
     public void evaluate(int r, int c, int depth) {
         String formula = cells[r][c].formula;
         if (formula.length() > 0 && formula.charAt(0) == '=') {
-        	formula = formula.replaceAll("\\s+", "");
+        	
+        	/**
+        	 * 	Caution:
+        	 * 	This is the previous solution. It may work with test cases like =   A1  +   B1
+        	 *	but it will fail when the test case is =   A   1   + B   1
+        	 *	and will be marked as a wrong solution by Proxor.
+        	 *	See nextToken.trim() on lines 143, 147, and 150.
+        	 *
+        	 *	This has been the greatest regret I ever had, please don't follow my footsteps.
+        	 *
+        	 *	Sincerely, 
+        	 *	Rave
+        	 */
+        	// formula = formula.replaceAll("\\s+", "");
+        	
             try {
                 if (depth <= maxRows * maxCols) {
                     StringTokenizer tokens = 
