@@ -2,7 +2,9 @@
 Solved exercises for Proxor examination.
 
 # Disclaimer
-These solutions should be used for studying only and does not guarantee a high proxor rating. You may start here and refine your own solution.
+You may use these solutions to aid you while you study for your upcoming Proxor Examination. It would be better to devise and refine your own solutions as you progress with the tasks and become familiar with the system.
+
+My advice: Practice smartly, not memorize hardly, and LOVE programming. Goodluck, bruv!
 
 ---
 
@@ -19,10 +21,10 @@ Proxor 1 high possibility solutions:
  - Exps-have-numbers-ss
  - Write-html-csv
   
-I am still unclear with these tasks:
+I am still unclear on how to rate these tasks:
  - Flexible-read-display-csv
  - Number-display-ss 
-    - Solution still buggy at some values like 1234567.45, you may issue a fix if you solved this.
+    - Solution still buggy at some values like "1234567.45". You may issue a fix if you solved this.
 
 ---
 
