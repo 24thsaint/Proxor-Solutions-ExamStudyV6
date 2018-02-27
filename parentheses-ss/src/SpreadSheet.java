@@ -1,9 +1,11 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.StringWriter;
+
 import javax.swing.*;
+import javax.script.*;
 
 import java.util.Scanner;
-import java.util.Stack;
 import java.util.StringTokenizer;
 
 /* SpreadSheet implements an array of cells within a graphical
@@ -104,13 +106,19 @@ public class SpreadSheet extends JFrame {
                 if (!cells[row][col].valid) {
                     evaluate(row, col, depth + 1);
                 }
-                if (cells[row][col].bottom) return null;
+                if (cells[row][col].bottom) {
+                	doubleScanner.close();
+                	return null;
+                };
+                doubleScanner.close();
                 return cellsTF[row][col].getText();
             }
+        } else if (doubleScanner.hasNextDouble()) {
+        	double doubleValue = doubleScanner.nextDouble();
+        	doubleScanner.close();
+        	return String.valueOf(doubleValue);
         }
-        if (doubleScanner.hasNextDouble()) {
-        	return String.valueOf(doubleScanner.nextDouble());
-        }
+        doubleScanner.close();
         return null;
     }
 
@@ -183,61 +191,50 @@ public class SpreadSheet extends JFrame {
             try {
                 if (depth <= maxRows * maxCols) {
                     StringTokenizer tokens = 
-                            new StringTokenizer(formula, "=()+*/-", true);
+                            new StringTokenizer(formula, "=+*/-()", true);
                     if (tokens.hasMoreTokens() && 
                         (tokens.nextToken().equals("="))) {
-                    	String val = null;
                     	
-                    	/**
-                    	 * This beautiful solution is based on
-                    	 * https://github.com/Optixal/ProxorSolutionsV6/tree/master/parentheses-ss
-                    	 */
                     	int openParensCount = 0;
                     	int closeParensCount = 0;
+                    	String val = null;
+                    	
                     	for (int i = 0; i < formula.length(); i++) {
 							if (formula.charAt(i) == '(') {
 								openParensCount++;
 							}
+							
 							if (formula.charAt(i) == ')') {
 								closeParensCount++;
 							}
 						}
                     	
-                    	if (openParensCount == closeParensCount && !formula.contains("|")) {
-                    		Stack<String> equationStack = new Stack<>();
-                    		while(tokens.hasMoreTokens()) {
+                    	if (openParensCount != 0 && openParensCount == closeParensCount && val == null) {
+                    		String parsedFormula = "";
+                    		
+                    		while (tokens.hasMoreTokens()) {
                     			String token = tokens.nextToken();
                     			
-                    			if (token.equals(")")) {
-                    				String fullEquationStr = "";
-                    				while(equationStack.size() >= 2) {
-                    					String lastElement = equationStack.pop();
-                    					String firstElement = equationStack.pop();
-                    					fullEquationStr = lastElement + "|" + fullEquationStr;
-                    					if (firstElement.equals("(")) {
-                    						StringTokenizer partialTokenEquation = new StringTokenizer(fullEquationStr, "|", false);
-                    						String partialResult = this.parseFormula(partialTokenEquation, depth);
-                    						equationStack.push(partialResult);
-                    						break;
-                    					} else {
-                    						fullEquationStr = firstElement + "|" + fullEquationStr;
-                    					}
-                    				}
+                    			if (token.matches("\\+?\\-?\\*?\\\\?\\(?\\)?")) {
+                    				parsedFormula += token;
                     			} else {
-                    				equationStack.push(token);
+                    				parsedFormula += this.evaluateToken(token, 0);
                     			}
                     		}
                     		
-                    		String finalEquation = "";
-                    		while(!equationStack.isEmpty()) {
-                    			finalEquation = equationStack.pop() + "|" + finalEquation;
+                    		ScriptEngineManager script = new ScriptEngineManager();
+                    		ScriptEngine engine = script.getEngineByName("JavaScript");
+                    		
+                    		try {
+                    			val = String.valueOf(engine.eval(parsedFormula));
+                    		} catch (ScriptException e) {
+                    			val = null;
                     		}
-                    		StringTokenizer finalTokens = new StringTokenizer(finalEquation, "|", false);
-                			String finalAnswer = this.parseFormula(finalTokens, depth);
-                    		val = finalAnswer;
+                    	} else {
+                    		val = parseFormula(tokens, depth);
                     	}
-                    			
-                        if (val != null) {
+                    	
+                    	if (val != null) {
                             cellsTF[r][c].setText(val);
                             cells[r][c].valid = true;
                             return;
