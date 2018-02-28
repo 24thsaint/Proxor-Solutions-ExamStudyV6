@@ -209,7 +209,7 @@ public class SpreadSheet extends JFrame {
 							}
 						}
                     	
-                    	if (openParensCount != 0 && openParensCount == closeParensCount && val == null) {
+                    	if (openParensCount != 0 && openParensCount == closeParensCount) {
                     		String parsedFormula = "";
                     		
                     		while (tokens.hasMoreTokens()) {
@@ -218,7 +218,7 @@ public class SpreadSheet extends JFrame {
                     			if (token.matches("\\+?\\-?\\*?\\\\?\\(?\\)?")) {
                     				parsedFormula += token;
                     			} else {
-                    				parsedFormula += this.evaluateToken(token, 0);
+                    				parsedFormula += this.evaluateToken(token, depth);
                     			}
                     		}
                     		
