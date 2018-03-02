@@ -215,7 +215,7 @@ public class SpreadSheet extends JFrame {
                     		while (tokens.hasMoreTokens()) {
                     			String token = tokens.nextToken();
                     			
-                    			if (token.matches("\\+?\\-?\\*?\\\\?\\(?\\)?")) {
+                    			if (token.matches("\\+?\\-?\\*?\\/?\\(?\\)?")) {
                     				parsedFormula += token;
                     			} else {
                     				parsedFormula += this.evaluateToken(token, depth);
