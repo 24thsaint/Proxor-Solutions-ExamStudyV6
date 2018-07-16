@@ -33,4 +33,5 @@ I do not intend to infringe copyright. If I am violating your rules, please info
 
 ---
 
-Donate (Eth): 0xF552C93a66A4AE6f2E45d0b6eF77764aBf5436D2
+# Donate 
+Ethereum: 0xF552C93a66A4AE6f2E45d0b6eF77764aBf5436D2
