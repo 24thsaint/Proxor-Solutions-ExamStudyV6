@@ -30,3 +30,7 @@ I am still unclear on how to rate these tasks:
 
 # Dear https://www.proxor.com/,
 I do not intend to infringe copyright. If I am violating your rules, please inform me and I will take this repository down right away. Thank you very much!
+
+---
+
+Donate (Eth): 0xF552C93a66A4AE6f2E45d0b6eF77764aBf5436D2
